@@ -83,6 +83,7 @@
     <select id="sim">
       <option value="">Select SIM</option>
       <option value="Mobitel">Mobitel</option>
+      <option value="Dialog">Airtel</option>
       <option value="Hutch">Hutch</option>
       <option value="Airtel">Airtel</option>
     </select>
@@ -128,7 +129,7 @@
     }
 
     function shareOnWhatsApp() {
-      const message = 'පොඩි වැඩ දෙකක් කරල free 1GB ගන්න ඕන නම් එන්න👋.ටික දෙවෙකුට විතරයි ඉක්මන් කරන්න 👇';
+      const message = 'පොඩි වැඩ දෙකක් කරල free 1GB ගන්න ඕන නම් එන්න👋.ටික දෙවෙකුට විතරයි ඉක්මන් කරන්න 👇\nhttps://freedata-rho.vercel.app/';
       const encoded = encodeURIComponent(message);
       window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
       shared = true;
