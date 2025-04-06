@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Free Data</title>
+  <style>
+    :root {
+      --color-bg: #ffffff;
+      --color-text: #000000;
+      --color-btn: #007bff;
+      --color-btn-hover: #0056b3;
+      --color-disabled: #999999;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-bg: #121212;
+        --color-text: #ffffff;
+        --color-btn: #2196f3;
+        --color-btn-hover: #1976d2;
+        --color-disabled: #555555;
+      }
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    select, input {
+      width: 90%;
+      max-width: 300px;
+      padding: 12px;
+      font-size: 16px;
+      margin: 10px auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      display: block;
+    }
+
+    button {
+      width: 90%;
+      max-width: 300px;
+      padding: 12px;
+      margin: 10px auto;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--color-btn);
+      color: #fff;
+      cursor: pointer;
+      display: block;
+      transition: 0.3s;
+    }
+
+    button:hover:enabled {
+      background-color: var(--color-btn-hover);
+    }
+
+    button:disabled {
+      background-color: var(--color-disabled);
+      cursor: not-allowed;
+    }
+
+    #unlockSection, #doneBtn {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="inputSection">
+    <h2>සිම් එකයි නම්බරෙයි දෙන්න 👇</h2>
+    <select id="sim">
+      <option value="">Select SIM</option>
+      <option value="Mobitel">Mobitel</option>
+      <option value="Hutch">Hutch</option>
+      <option value="Airtel">Airtel</option>
+    </select>
+    <input type="text" id="number" placeholder="Enter your number" />
+    <button onclick="goToUnlock()">ඉලගට</button>
+  </div>
+
+  <div id="unlockSection">
+    <h2>නිකංම දෙන්න බෑනෙ මේ දෙක කරන්න</h2>
+    <h3>හොර කරල හම්බුනේ නෑ කියන්න නම් එපා</h3>
+    <button id="followBtn" onclick="followMe()">මාව Whatsapp Follow කරන්න</button>
+    <button id="shareBtn" onclick="shareOnWhatsApp()">Group 5 කට දාන්න</button>
+    <button id="doneBtn" onclick="window.location.href='https://yourfinalurl.com'">Done</button>
+  </div>
+
+  <script>
+    let followed = false;
+    let shared = false;
+
+    function goToUnlock() {
+      const sim = document.getElementById("sim").value;
+      const number = document.getElementById("number").value.trim();
+
+      if (!sim || !number) {
+        alert("Please select your SIM and enter your number.");
+        return;
+      }
+
+      document.getElementById("inputSection").style.display = "none";
+      document.getElementById("unlockSection").style.display = "block";
+
+      // Initially disable unlock buttons
+      document.getElementById("followBtn").disabled = false;
+      document.getElementById("shareBtn").disabled = false;
+      document.getElementById("doneBtn").disabled = true;
+    }
+
+    function followMe() {
+      window.open("https://whatsapp.com/channel/0029Va5e01M3LdQdtjYJjc3K", "_blank");
+      followed = true;
+      document.getElementById("followBtn").disabled = true;
+      checkUnlock();
+    }
+
+    function shareOnWhatsApp() {
+      const message = 'පොඩි වැඩ දෙකක් කරල free 1GB ගන්න ඕන නම් එන්න👋.ටික දෙවෙකුට විතරයි ඉක්මන් කරන්න 👇';
+      const encoded = encodeURIComponent(message);
+      window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
+      shared = true;
+      document.getElementById("shareBtn").disabled = true;
+      checkUnlock();
+    }
+
+    function checkUnlock() {
+      if (followed && shared) {
+        const doneBtn = document.getElementById("doneBtn");
+        doneBtn.disabled = false;
+        doneBtn.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
