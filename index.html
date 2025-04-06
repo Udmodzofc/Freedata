@@ -1,76 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Free Data</title>
-  <!-- Social Media Preview -->
-<meta property="og:title" content="Free Mobile Data Offer" />
-<meta property="og:description" content="Follow 2 simple steps and get 1GB of free data today!" />
-<meta property="og:image" content="https://freedata-rho.vercel.app/preview.jpg" />
-<meta property="og:url" content="https://freedata-rho.vercel.app/" />
-<meta property="og:type" content="website" />
+  <title>Free Mobile Data</title>
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Free Mobile Data Offer" />
-<meta name="twitter:description" content="Follow 2 steps to claim your free 1GB data. Limited offer!" />
-<meta name="twitter:image" content="https://freedata-rho.vercel.app/preview.jpg" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <!-- Social Preview -->
+  <meta property="og:title" content="Free Mobile Data Offer" />
+  <meta property="og:description" content="Follow 2 simple steps and get 1GB of free data today!" />
+  <meta property="og:image" content="https://freedata-rho.vercel.app/preview.jpg" />
+  <meta property="og:url" content="https://freedata-rho.vercel.app/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Mobile Data Offer" />
+  <meta name="twitter:description" content="Follow 2 steps to claim your free 1GB data. Limited offer!" />
+  <meta name="twitter:image" content="https://freedata-rho.vercel.app/preview.jpg" />
+
   <style>
     :root {
-      --color-bg: #ffffff;
-      --color-text: #000000;
-      --color-btn: #007bff;
-      --color-btn-hover: #0056b3;
-      --color-disabled: #999999;
+      --bg: #ffffff;
+      --text: #000000;
+      --btn: #007bff;
+      --btn-hover: #0056b3;
+      --disabled: #999999;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --color-bg: #0e0e0e;
-        --color-text: #ffffff;
-        --color-btn: #00bfff;
-        --color-btn-hover: #0099cc;
-        --color-disabled: #444444;
+        --bg: #121212;
+        --text: #ffffff;
+        --btn: #2196f3;
+        --btn-hover: #1976d2;
+        --disabled: #555555;
       }
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      background-color: var(--color-bg);
-      color: var(--color-text);
-      font-family: 'Poppins', sans-serif;
       margin: 0;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
       text-align: center;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
+      padding: 20px;
+      overflow: hidden;
     }
 
     h2, h3 {
-      margin-bottom: 15px;
+      margin-bottom: 10px;
+      animation: fadeIn 1s ease;
     }
 
     select, input, button {
       width: 90%;
       max-width: 320px;
       padding: 12px;
+      margin: 12px auto;
       font-size: 16px;
-      margin: 10px auto;
+      border-radius: 5px;
       border: none;
-      border-radius: 8px;
       display: block;
-      transition: 0.3s ease;
     }
 
     input, select {
@@ -78,156 +66,138 @@
     }
 
     button {
-      background-color: var(--color-btn);
+      background-color: var(--btn);
       color: #fff;
-      font-weight: 600;
-    }
-
-    button:hover:enabled {
-      background-color: var(--color-btn-hover);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
     }
 
     button:disabled {
-      background-color: var(--color-disabled);
+      background-color: var(--disabled);
       cursor: not-allowed;
+    }
+
+    button:hover:enabled {
+      background-color: var(--btn-hover);
+      transform: scale(1.03);
     }
 
     #unlockSection, #finalMessage {
       display: none;
     }
 
-    #finalMessage {
-      padding-top: 40px;
-      font-size: 18px;
-      color: red;
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
   </style>
 </head>
 <body>
 
-<canvas id="bgParticles"></canvas>
+<div id="particles-js"></div>
 
-  <div id="inputSection">
-    <h2>සිම් එකයි නම්බරෙයි දෙන්න 👇</h2>
-    <select id="sim">
-      <option value="">Select SIM</option>
-      <option value="Mobitel">Mobitel</option>
-      <option value="Dialog">Dialog</option>
-      <option value="Hutch">Hutch</option>
-      <option value="Airtel">Airtel</option>
-    </select>
-    <input type="text" id="number" placeholder="Enter your number" />
-    <button onclick="goToUnlock()">ඉලගට</button>
-  </div>
+<div id="inputSection">
+  <h2>සිම් එකයි නම්බරෙයි දෙන්න 👇</h2>
+  <select id="sim">
+    <option value="">Select SIM</option>
+    <option value="Mobitel">Mobitel</option>
+    <option value="Dialog">Dialog</option>
+    <option value="Hutch">Hutch</option>
+    <option value="Airtel">Airtel</option>
+  </select>
+  <input type="text" id="number" placeholder="Enter your number" />
+  <button onclick="goToUnlock()">ඉලගට</button>
+</div>
 
-  <div id="unlockSection">
-    <h2>නිකංම දෙන්න බෑනෙ මේ දෙක කරන්න</h2>
-    <h3>හොර කරල හම්බුනේ නෑ කියන්න නම් එපා</h3>
-    <button id="followBtn" onclick="followMe()">මාව Whatsapp Follow කරන්න</button>
-    <button id="shareBtn" onclick="shareOnWhatsApp()">Group 5 කට දාන්න</button>
-    <button id="doneBtn" onclick="showFinalMessage()" disabled>Done</button>
-  </div>
+<div id="unlockSection">
+  <h2>නිකංම දෙන්න බෑනෙ මේ දෙක කරන්න</h2>
+  <h3>හොර කරල හම්බුනේ නෑ කියන්න නම් එපා</h3>
+  <button id="followBtn" onclick="followMe()">මාව Whatsapp Follow කරන්න</button>
+  <button id="shareBtn" onclick="shareOnWhatsApp()">Group 5 කට දාන්න</button>
+  <button id="doneBtn" onclick="showFinalMessage()" disabled>Done</button>
+</div>
 
-  <div id="finalMessage">
-    හදුනාගත නොහැකි දෝෂයක් ඇතිවිය<br>
-    නැවත උත්සාහ කරන්න.<br>
-    නැතහොත් අපව whatsapp මගින් සම්බන්ද කරගන්න<br>
-    <strong>+94 775 649 786</strong> 🥲
-  </div>
+<div id="finalMessage">
+  <h2>හදුනාගත නොහැකි දෝෂයකි</h2>
+  <p>නැවත උත්සාහ කරන්න. නැතහොත් අපව Whatsapp මගින් සම්බන්ධ කරන්න: <br><b>+94 775 649786</b> 🥲</p>
+</div>
 
-  <script>
-    let followed = false;
-    let shared = false;
+<script>
+  let followed = false;
+  let shared = false;
 
-    function goToUnlock() {
-      const sim = document.getElementById("sim").value;
-      const number = document.getElementById("number").value.trim();
+  function goToUnlock() {
+    const sim = document.getElementById("sim").value;
+    const number = document.getElementById("number").value.trim();
 
-      if (!sim || !number) {
-        alert("Please select your SIM and enter your number.");
-        return;
-      }
-
-      document.getElementById("inputSection").style.display = "none";
-      document.getElementById("unlockSection").style.display = "block";
-
-      document.getElementById("followBtn").disabled = false;
-      document.getElementById("shareBtn").disabled = false;
+    if (!sim || !number) {
+      alert("Please select your SIM and enter your number.");
+      return;
     }
 
-    function followMe() {
-      window.open("https://whatsapp.com/channel/0029Va5e01M3LdQdtjYJjc3K", "_blank");
-      followed = true;
-      document.getElementById("followBtn").disabled = true;
-      checkUnlock();
-    }
+    document.getElementById("inputSection").style.display = "none";
+    document.getElementById("unlockSection").style.display = "block";
+    document.getElementById("doneBtn").style.display = "none";
+  }
 
-    function shareOnWhatsApp() {
-      const message = 'පොඩි වැඩ දෙකක් කරල free 1GB ගන්න ඕන නම් එන්න👋\nhttps://freedata-rho.vercel.app/\nමටත් හම්බුනා 😁';
-      const encoded = encodeURIComponent(message);
-      window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
-      shared = true;
-      document.getElementById("shareBtn").disabled = true;
-      checkUnlock();
-    }
+  function followMe() {
+    window.open("https://whatsapp.com/channel/0029Va5e01M3LdQdtjYJjc3K", "_blank");
+    followed = true;
+    document.getElementById("followBtn").disabled = true;
+    checkUnlock();
+  }
 
-    function checkUnlock() {
-      if (followed && shared) {
+  function shareOnWhatsApp() {
+    const message = 'පොඩි වැඩ දෙකක් කරල free 1GB ගන්න ඕන නම් එන්න👋. ටික දෙවෙකුට විතරයි ඉක්මන් කරන්න 👇\nhttps://freedata-rho.vercel.app/\nමටත් හම්බුනා 😁';
+    const encoded = encodeURIComponent(message);
+    window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
+    shared = true;
+    document.getElementById("shareBtn").disabled = true;
+    checkUnlock();
+  }
+
+  function checkUnlock() {
+    if (followed && shared) {
+      setTimeout(() => {
         const doneBtn = document.getElementById("doneBtn");
         doneBtn.disabled = false;
-      }
+        doneBtn.style.display = "block";
+      }, 2000);
     }
+  }
 
-    function showFinalMessage() {
-      document.getElementById("unlockSection").style.display = "none";
-      document.getElementById("finalMessage").style.display = "block";
+  function showFinalMessage() {
+    document.getElementById("unlockSection").style.display = "none";
+    document.getElementById("finalMessage").style.display = "block";
+  }
+</script>
+
+<!-- Particle.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 40 },
+      color: { value: "#00bfff" },
+      shape: { type: "circle" },
+      opacity: { value: 0.5 },
+      size: { value: 3 },
+      move: { enable: true, speed: 1 }
+    },
+    interactivity: {
+      events: { onhover: { enable: true, mode: "repulse" } }
     }
+  });
+</script>
 
-    // Particle background
-    const canvas = document.getElementById('bgParticles');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    function createParticles() {
-      particles = [];
-      for (let i = 0; i < 100; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.6,
-          vy: (Math.random() - 0.5) * 0.6,
-          size: Math.random() * 2 + 1
-        });
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 123, 255, 0.5)';
-        ctx.fill();
-      }
-      requestAnimationFrame(animateParticles);
-    }
-
-    createParticles();
-    animateParticles();
-  </script>
 </body>
 </html>
