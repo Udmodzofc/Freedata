@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Free Data</title>
+  <!-- Social Media Preview -->
+<meta property="og:title" content="Free Mobile Data Offer" />
+<meta property="og:description" content="Follow 2 simple steps and get 1GB of free data today!" />
+<meta property="og:image" content="https://freedata-rho.vercel.app/preview.jpg" />
+<meta property="og:url" content="https://freedata-rho.vercel.app/" />
+<meta property="og:type" content="website" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Free Mobile Data Offer" />
+<meta name="twitter:description" content="Follow 2 steps to claim your free 1GB data. Limited offer!" />
+<meta name="twitter:image" content="https://freedata-rho.vercel.app/preview.jpg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
   <style>
     :root {
       --color-bg: #ffffff;
@@ -19,51 +27,60 @@
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --color-bg: #121212;
+        --color-bg: #0e0e0e;
         --color-text: #ffffff;
-        --color-btn: #2196f3;
-        --color-btn-hover: #1976d2;
-        --color-disabled: #555555;
+        --color-btn: #00bfff;
+        --color-btn-hover: #0099cc;
+        --color-disabled: #444444;
       }
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       background-color: var(--color-bg);
       color: var(--color-text);
-      font-family: sans-serif;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 20px;
       text-align: center;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    h2 {
-      margin-bottom: 20px;
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
 
-    select, input {
+    h2, h3 {
+      margin-bottom: 15px;
+    }
+
+    select, input, button {
       width: 90%;
-      max-width: 300px;
+      max-width: 320px;
       padding: 12px;
       font-size: 16px;
       margin: 10px auto;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: none;
+      border-radius: 8px;
       display: block;
+      transition: 0.3s ease;
+    }
+
+    input, select {
+      border: 1px solid #ccc;
     }
 
     button {
-      width: 90%;
-      max-width: 300px;
-      padding: 12px;
-      margin: 10px auto;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
       background-color: var(--color-btn);
       color: #fff;
-      cursor: pointer;
-      display: block;
-      transition: 0.3s;
+      font-weight: 600;
     }
 
     button:hover:enabled {
@@ -75,12 +92,20 @@
       cursor: not-allowed;
     }
 
-    #unlockSection, #doneBtn {
+    #unlockSection, #finalMessage {
       display: none;
+    }
+
+    #finalMessage {
+      padding-top: 40px;
+      font-size: 18px;
+      color: red;
     }
   </style>
 </head>
 <body>
+
+<canvas id="bgParticles"></canvas>
 
   <div id="inputSection">
     <h2>සිම් එකයි නම්බරෙයි දෙන්න 👇</h2>
@@ -100,7 +125,14 @@
     <h3>හොර කරල හම්බුනේ නෑ කියන්න නම් එපා</h3>
     <button id="followBtn" onclick="followMe()">මාව Whatsapp Follow කරන්න</button>
     <button id="shareBtn" onclick="shareOnWhatsApp()">Group 5 කට දාන්න</button>
-    <button id="doneBtn" onclick="window.location.href='https://yourfinalurl.com'">Done</button>
+    <button id="doneBtn" onclick="showFinalMessage()" disabled>Done</button>
+  </div>
+
+  <div id="finalMessage">
+    හදුනාගත නොහැකි දෝෂයක් ඇතිවිය<br>
+    නැවත උත්සාහ කරන්න.<br>
+    නැතහොත් අපව whatsapp මගින් සම්බන්ද කරගන්න<br>
+    <strong>+94 775 649 786</strong> 🥲
   </div>
 
   <script>
@@ -119,10 +151,8 @@
       document.getElementById("inputSection").style.display = "none";
       document.getElementById("unlockSection").style.display = "block";
 
-      // Initially disable unlock buttons
       document.getElementById("followBtn").disabled = false;
       document.getElementById("shareBtn").disabled = false;
-      document.getElementById("doneBtn").disabled = true;
     }
 
     function followMe() {
@@ -133,7 +163,7 @@
     }
 
     function shareOnWhatsApp() {
-      const message = 'පොඩි වැඩ දෙකක් කරල free 1GB ගන්න ඕන නම් එන්න👋.ටික දෙවෙකුට විතරයි ඉක්මන් කරන්න 👇\nhttps://freedata-rho.vercel.app/\nමටත් හම්බුනා 😁';
+      const message = 'පොඩි වැඩ දෙකක් කරල free 1GB ගන්න ඕන නම් එන්න👋\nhttps://freedata-rho.vercel.app/\nමටත් හම්බුනා 😁';
       const encoded = encodeURIComponent(message);
       window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
       shared = true;
@@ -145,9 +175,59 @@
       if (followed && shared) {
         const doneBtn = document.getElementById("doneBtn");
         doneBtn.disabled = false;
-        doneBtn.style.display = "block";
       }
     }
+
+    function showFinalMessage() {
+      document.getElementById("unlockSection").style.display = "none";
+      document.getElementById("finalMessage").style.display = "block";
+    }
+
+    // Particle background
+    const canvas = document.getElementById('bgParticles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createParticles() {
+      particles = [];
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          size: Math.random() * 2 + 1
+        });
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 123, 255, 0.5)';
+        ctx.fill();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    createParticles();
+    animateParticles();
   </script>
 </body>
 </html>
