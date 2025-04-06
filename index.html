@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Free Data</title>
@@ -129,7 +133,7 @@
     }
 
     function shareOnWhatsApp() {
-      const message = 'පොඩි වැඩ දෙකක් කරල free 1GB ගන්න ඕන නම් එන්න👋.ටික දෙවෙකුට විතරයි ඉක්මන් කරන්න 👇\nhttps://freedata-rho.vercel.app/';
+      const message = 'පොඩි වැඩ දෙකක් කරල free 1GB ගන්න ඕන නම් එන්න👋.ටික දෙවෙකුට විතරයි ඉක්මන් කරන්න 👇\nhttps://freedata-rho.vercel.app/\nමටත් හම්බුනා 😁';
       const encoded = encodeURIComponent(message);
       window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
       shared = true;
